@@ -1,0 +1,11 @@
+C:\GitRepositories\MongoTester\MongoDBTester\bin\Debug\MongoDBTester.exe.config
+C:\GitRepositories\MongoTester\MongoDBTester\bin\Debug\MongoDBTester.exe
+C:\GitRepositories\MongoTester\MongoDBTester\bin\Debug\MongoDBTester.pdb
+C:\GitRepositories\MongoTester\MongoDBTester\obj\Debug\MongoDBTester.exe
+C:\GitRepositories\MongoTester\MongoDBTester\obj\Debug\MongoDBTester.pdb
+C:\GitRepositories\MongoTester\MongoDBTester\bin\Debug\DnsClient.dll
+C:\GitRepositories\MongoTester\MongoDBTester\bin\Debug\MongoDB.Bson.dll
+C:\GitRepositories\MongoTester\MongoDBTester\bin\Debug\MongoDB.Driver.Core.dll
+C:\GitRepositories\MongoTester\MongoDBTester\bin\Debug\MongoDB.Driver.dll
+C:\GitRepositories\MongoTester\MongoDBTester\bin\Debug\System.Buffers.dll
+C:\GitRepositories\MongoTester\MongoDBTester\obj\Debug\MongoDBTester.csproj.CopyComplete
