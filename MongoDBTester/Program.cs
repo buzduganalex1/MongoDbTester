@@ -11,7 +11,8 @@ namespace MongoDBTester
 {
 	class Program
 	{
-		private static IMongoCollection<EducatedRealityRoom> collection;
+		private static IMongoCollection<ParkDesign> parkCollection;
+
 
 		static void Main(string[] args)
 		{
@@ -19,16 +20,28 @@ namespace MongoDBTester
 			{
 				Console.WriteLine("Connecting...");
 
-				var client = new MongoClient("mongodb+srv://abuzduga:Himnituterugi1@cluster0.htavf.mongodb.net/EducatedReality?retryWrites=true&w=majority");
+				var client = new MongoClient("mongodb+srv://abuzduga:EducatedReality@cluster0.htavf.mongodb.net/EducatedReality?retryWrites=true&w=majority");
+				
 				var database = client.GetDatabase("EducatedReality");
-				collection = database.GetCollection<EducatedRealityRoom>("Rooms");
+				parkCollection = database.GetCollection<ParkDesign>("ParkDesigns");
 
-				var rooms = GetAll();
+				var parkDesign1 = new ParkDesign() {
+					Description = "tets",
+					Longitude = "10",
+					Latitude = "10",
+					VideoUrl = "123"
+				};
 
-				foreach (var room in rooms)
+				Insert(parkDesign1);
+
+				var parkDesigns = GetAll();
+
+				foreach (var parkDesign in parkDesigns)
 				{
-					Console.WriteLine($"Roomname: {room.Name}");
-					Console.WriteLine($"Roompassword: {room.Password}");
+					Console.WriteLine($"Description: {parkDesign.Description}");
+					Console.WriteLine($"VideoUrl: {parkDesign.VideoUrl}");
+					Console.WriteLine($"Latitude: {parkDesign.Latitude}");
+					Console.WriteLine($"Longitude: {parkDesign.Longitude}");
 				}
 
 				Console.ReadLine();
@@ -39,49 +52,54 @@ namespace MongoDBTester
 			}
 		}
 
-		public static IEnumerable<EducatedRealityRoom> GetAll()
+		public static IEnumerable<ParkDesign> GetAll()
 		{
-			var result = collection.Find(new BsonDocument())
+			var result = parkCollection.Find(new BsonDocument())
 				.Skip(0)
 				.Limit(100)
 				.ToListAsync().Result;
 
 			if (result.Any())
 			{
-				return result.Select(x => new EducatedRealityRoom()
-				{
-					Name = x.Name,
-					Password = x.Password,
-					Type = x.Type
-				});
+				return result.Select(x => new ParkDesign()
+				{ 
+					Id = x.Id,
+					Description = x.Description,
+					Latitude = x.Latitude,
+					Longitude = x.Longitude,
+					VideoUrl = x.VideoUrl
+				});;
 			}
 
-			return new List<EducatedRealityRoom>();
+			return new List<ParkDesign>();
 		}
 
-		public static void Insert(EducatedRealityRoom entity)
+		public static void Insert(ParkDesign entity)
 		{
-			collection.InsertOne(entity);
+			parkCollection.InsertOne(entity);
 		}
 
-		public static void InsertMany(IEnumerable<EducatedRealityRoom> entities)
+		public static void InsertMany(IEnumerable<ParkDesign> entities)
 		{
-			collection.InsertMany(entities);
+			parkCollection.InsertMany(entities);
 		}
 	}
 
-	public class EducatedRealityRoom
+	public class ParkDesign
 	{
 		[BsonId]
 		public ObjectId Id { get; set; }
 
-		[BsonElement("name")]
-		public string Name { get; set; }
+		[BsonElement("videoUrl")]
+		public string VideoUrl { get; set; }
 
-		[BsonElement("password")]
-		public string Password { get; set; }
+		[BsonElement("description")]
+		public string Description { get; set; }
 
-		[BsonElement("type")]
-		public string Type { get; set; }
+		[BsonElement("longitude")]
+		public string Longitude { get; set; }
+
+		[BsonElement("latitude")]
+		public string Latitude { get; set; }
 	}
 }
